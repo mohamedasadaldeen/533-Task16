@@ -1,7 +1,8 @@
+
 /* =========================================================
    CAIRO CINEMA
-   Clean stylesheet — Header, Movies Filter, Movies Grid,
-   Pagination, Footer, Background Watermark, Responsive
+   Clean Stylesheet
+   Header, Movies Filter, Movies Grid, Pagination, Footer
 ========================================================= */
 
 
@@ -99,49 +100,156 @@ body {
             color: #ffc107;
         }
 
-.cinema-search-form {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.cinema-search-input {
-    width: 220px;
-    padding: 9px 12px;
-    color: #ffffff;
-    background-color: #202027;
-    border: 1px solid #35353d;
-    border-radius: 6px;
-    outline: none;
-}
-
-    .cinema-search-input:focus {
-        border-color: #ffc107;
-    }
-
-.cinema-search-btn {
-    padding: 9px 14px;
-    color: #151519;
-    background-color: #ffc107;
-    border: 1px solid #ffc107;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-    .cinema-search-btn:hover {
-        background-color: #e5ac00;
-        border-color: #e5ac00;
-    }
-
 .cinema-toggler {
     color: #ffc107;
     border: 1px solid #ffc107;
 }
 
+    .cinema-toggler .navbar-toggler-icon {
+        filter: invert(78%) sepia(91%) saturate(1000%) hue-rotate(358deg) brightness(103%);
+    }
+
 
 /* =========================================================
-   3. MOVIES FILTER
+   3. HEADER MENU & DROPDOWN
+========================================================= */
+
+.cinema-navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.cinema-menu-wrapper {
+    position: relative;
+}
+
+/* Small Menu Button */
+
+.cinema-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 36px;
+    padding: 0;
+    color: #151519;
+    background-color: #ffc107;
+    border: 1px solid #ffc107;
+    border-radius: 3px;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+    .cinema-menu-btn i {
+        font-size: 23px;
+    }
+
+    .cinema-menu-btn:hover,
+    .cinema-menu-btn:focus,
+    .cinema-menu-btn:active {
+        color: #151519;
+        background-color: #e5ac00;
+        border-color: #e5ac00;
+        box-shadow: none;
+    }
+
+/* Dropdown Container */
+
+.cinema-dropdown {
+    width: 190px;
+    min-width: 190px;
+    margin-top: 12px !important;
+    padding: 8px;
+    background-color: #1c1c22;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+    /* Dropdown Items */
+
+    .cinema-dropdown .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 11px;
+        color: #cccccc;
+        background-color: transparent;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: all 0.2s ease;
+    }
+
+        .cinema-dropdown .dropdown-item i {
+            width: 18px;
+            color: #ffc107;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .cinema-dropdown .dropdown-item:hover,
+        .cinema-dropdown .dropdown-item:focus {
+            color: #ffc107;
+            background-color: rgba(255, 193, 7, 0.09);
+        }
+
+/* Section Headings */
+
+.cinema-dropdown-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 5px 8px;
+}
+
+    .cinema-dropdown-heading span {
+        flex: 1;
+        height: 1px;
+        background-color: #414149;
+    }
+
+    .cinema-dropdown-heading small {
+        color: #85858d;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        white-space: nowrap;
+    }
+
+/* Account Section */
+
+.cinema-account-heading {
+    margin-top: 5px;
+    padding-top: 13px;
+}
+
+.cinema-dropdown form {
+    margin: 0;
+}
+
+.cinema-dropdown .cinema-logout-item {
+    width: 100%;
+    text-align: left;
+}
+
+    .cinema-dropdown .cinema-logout-item i {
+        color: #dc3545;
+    }
+
+    .cinema-dropdown .cinema-logout-item:hover {
+        color: #dc3545;
+        background-color: rgba(220, 53, 69, 0.08);
+    }
+
+.cinema-dropdown .dropdown-item:focus-visible {
+    outline: 1px solid #ffc107;
+    outline-offset: -2px;
+}
+
+
+/* =========================================================
+   4. MOVIES FILTER
 ========================================================= */
 
 .cinema-filter {
@@ -224,22 +332,30 @@ body {
         }
 
 .cinema-filter-input {
+    display: block;
     width: 100%;
     min-width: 0;
+    min-height: 44px;
     height: 44px;
-    padding: 0 10px;
+    padding: 10px 12px;
     color: #ffffff;
     background-color: #151519;
-    border: 1px solid #393941;
-    border-radius: 7px;
+    border: 1px solid #3a3a43;
+    border-radius: 8px;
     outline: none;
     font-size: 13px;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+    .cinema-filter-input::placeholder {
+        color: #a5a5ad;
+    }
+
     .cinema-filter-input:focus {
+        color: #ffffff;
+        background-color: #151519;
         border-color: #ffc107;
-        box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.1);
+        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.15);
     }
 
     .cinema-filter-input option {
@@ -253,28 +369,48 @@ body {
 
 .filter-apply-btn {
     width: 100%;
+    min-height: 44px;
     height: 44px;
-    padding: 0 12px;
+    padding: 10px 14px;
     color: #151519;
     background-color: #ffc107;
     border: 1px solid #ffc107;
-    border-radius: 7px;
+    border-radius: 8px;
     font-size: 13px;
-    font-weight: 800;
-    white-space: nowrap;
+    font-weight: 700;
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
 }
 
     .filter-apply-btn:hover {
-        background-color: #e5ac00;
-        border-color: #e5ac00;
-        transform: translateY(-1px);
+        color: #151519;
+        background-color: #e0a800;
+        border-color: #e0a800;
+    }
+
+.filter-reset-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 44px;
+    padding: 10px 14px;
+    color: #ffc107;
+    background-color: transparent;
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .filter-reset-btn:hover {
+        color: #151519;
+        background-color: #ffc107;
     }
 
 
 /* =========================================================
-   4. MOVIES PAGE & PAGE HEADING
+   5. MOVIES PAGE & PAGE HEADING
 ========================================================= */
 
 .movies-page {
@@ -317,7 +453,7 @@ body {
 
 
 /* =========================================================
-   5. MOVIES GRID & CARDS
+   6. MOVIES GRID & CARDS
 ========================================================= */
 
 .movies-page .row {
@@ -349,7 +485,7 @@ body {
 
 
 /* =========================================================
-   6. MOVIE POSTER & CATEGORY
+   7. MOVIE POSTER & CATEGORY
 ========================================================= */
 
 .movie-image-wrapper {
@@ -389,7 +525,7 @@ body {
 
 
 /* =========================================================
-   7. MOVIE INFORMATION & DETAILS BUTTON
+   8. MOVIE INFORMATION & DETAILS BUTTON
 ========================================================= */
 
 .movie-info {
@@ -462,7 +598,7 @@ body {
 
 
 /* =========================================================
-   8. MOVIES PAGINATION
+   9. MOVIES PAGINATION
 ========================================================= */
 
 .movies-pagination {
@@ -535,7 +671,7 @@ body {
 
 
 /* =========================================================
-   9. FOOTER
+   10. FOOTER
 ========================================================= */
 
 .cinema-footer {
@@ -616,17 +752,19 @@ body {
 
 
 /* =========================================================
-   10. RESPONSIVE LAYOUT
+   11. RESPONSIVE LAYOUT
 ========================================================= */
 
-/* Filter: medium screens */
+/* Filter: Medium Screens */
+
 @media (max-width: 1399px) {
     .filter-controls {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-/* Tablets and small laptops */
+/* Tablets and Small Laptops */
+
 @media (max-width: 1199.98px) {
     .movies-page .container-fluid {
         padding-right: 20px !important;
@@ -638,7 +776,26 @@ body {
     }
 }
 
-/* Mobile and tablets */
+/* Navbar and Tablets */
+
+@media (max-width: 991.98px) {
+    .cinema-navbar-content {
+        justify-content: flex-end;
+        padding: 18px 0 10px;
+    }
+
+    .cinema-menu-wrapper {
+        align-self: flex-end;
+    }
+
+    .cinema-dropdown {
+        width: 190px;
+        min-width: 190px;
+    }
+}
+
+/* Mobile */
+
 @media (max-width: 767.98px) {
     .cinema-navbar {
         flex-wrap: wrap;
@@ -652,16 +809,6 @@ body {
     .cinema-nav-links {
         flex-wrap: wrap;
         gap: 14px;
-    }
-
-    .cinema-search-form {
-        width: 100%;
-    }
-
-    .cinema-search-input {
-        flex: 1;
-        min-width: 0;
-        width: 100%;
     }
 
     .cinema-filter {
@@ -694,6 +841,10 @@ body {
         height: 350px;
     }
 
+    .cinema-filter-container {
+        padding: 16px 12px;
+    }
+
     .footer-content,
     .footer-bottom {
         flex-direction: column;
@@ -706,7 +857,8 @@ body {
     }
 }
 
-/* Small phones */
+/* Small Phones */
+
 @media (max-width: 480px) {
     .filter-header {
         align-items: flex-start;
@@ -736,246 +888,25 @@ body {
             font-size: 13px;
         }
 }
+/* Shopping Cart Button */
 
-
-/* Movies Filter Section */
-.filter-bar {
-    background-color: #151519;
-    padding: 20px 0;
-}
-
-.cinema-filter-container {
-    background-color: #202027;
-    border: 1px solid rgba(255, 193, 7, 0.15);
-    border-radius: 12px;
-    padding: 22px 16px;
-}
-
-/* Filter Inputs */
-.cinema-filter-input {
-    min-height: 44px;
-    background-color: #151519;
-    color: #fff;
-    border: 1px solid #3a3a43;
-    border-radius: 8px;
-}
-
-    .cinema-filter-input:focus {
-        background-color: #151519;
-        color: #fff;
-        border-color: #ffc107;
-        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.15);
-    }
-
-    .cinema-filter-input::placeholder {
-        color: #a5a5ad;
-    }
-
-    .cinema-filter-input option {
-        background-color: #202027;
-        color: #fff;
-    }
-
-/* Filter Button */
-.filter-apply-btn {
-    min-height: 44px;
-    background-color: #ffc107;
-    color: #151519;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-    .filter-apply-btn:hover {
-        background-color: #e0a800;
-        border-color: #e0a800;
-        color: #151519;
-    }
-
-/* Reset Button */
-.filter-reset-btn {
-    min-height: 44px;
+.cinema-cart-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    background-color: transparent;
+    width: 38px;
+    height: 36px;
+    margin-right: 10px;
     color: #ffc107;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-}
-
-    .filter-reset-btn:hover {
-        background-color: #ffc107;
-        color: #151519;
-    }
-
-/* Responsive */
-@media (max-width: 767px) {
-    .cinema-filter-container {
-        padding: 16px 12px;
-    }
-}
-
-
-
-/* Movies Filter Section */
-.filter-bar {
-    background-color: #151519;
-    padding: 20px 0;
-}
-
-.cinema-filter-container {
-    background-color: #202027;
-    border: 1px solid rgba(255, 193, 7, 0.15);
-    border-radius: 12px;
-    padding: 22px 16px;
-}
-
-/* Inputs and Selects */
-.cinema-filter-input {
-    min-height: 44px;
-    background-color: #151519;
-    color: #fff;
-    border: 1px solid #3a3a43;
-    border-radius: 8px;
-}
-
-    .cinema-filter-input:focus {
-        background-color: #151519;
-        color: #fff;
-        border-color: #ffc107;
-        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.15);
-    }
-
-    .cinema-filter-input::placeholder {
-        color: #a5a5ad;
-    }
-
-    .cinema-filter-input option {
-        background-color: #202027;
-        color: #fff;
-    }
-
-/* Apply Button */
-.filter-apply-btn {
-    min-height: 44px;
-    background-color: #ffc107;
-    color: #151519;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-    font-weight: 600;
-}
-
-    .filter-apply-btn:hover {
-        background-color: #e0a800;
-        border-color: #e0a800;
-        color: #151519;
-    }
-
-/* Reset Button */
-.filter-reset-btn {
-    min-height: 44px;
     background-color: transparent;
-    color: #ffc107;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
+    border: 1px solid rgba(255, 193, 7, 0.35);
+    border-radius: 3px;
+    font-size: 21px;
+    text-decoration: none;
+    transition: all 0.2s ease;
 }
 
-    .filter-reset-btn:hover {
+    .cinema-cart-btn:hover {
+        color: #151519;
         background-color: #ffc107;
-        color: #151519;
     }
-
-/* Responsive */
-@media (max-width: 767px) {
-    .cinema-filter-container {
-        padding: 16px 12px;
-    }
-}
-
-/* Movies Filter Section */
-.filter-bar {
-    background-color: #151519;
-    padding: 20px 0;
-}
-
-/* Filter Form */
-.cinema-filter {
-    background-color: #202027;
-    border: 1px solid rgba(255, 193, 7, 0.15);
-    border-radius: 12px;
-    padding: 22px;
-}
-
-/* Inputs and Selects */
-.cinema-filter-input {
-    display: block;
-    width: 100%;
-    min-height: 44px;
-    padding: 10px 12px;
-    background-color: #151519;
-    color: #fff;
-    border: 1px solid #3a3a43;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-    .cinema-filter-input::placeholder {
-        color: #a5a5ad;
-    }
-
-    .cinema-filter-input:focus {
-        background-color: #151519;
-        color: #fff;
-        border-color: #ffc107;
-        box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.15);
-    }
-
-    .cinema-filter-input option {
-        background-color: #202027;
-        color: #fff;
-    }
-
-/* Apply Button */
-.filter-apply-btn {
-    min-height: 44px;
-    padding: 10px 14px;
-    background-color: #ffc107;
-    color: #151519;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-    .filter-apply-btn:hover {
-        background-color: #e0a800;
-        border-color: #e0a800;
-        color: #151519;
-    }
-
-/* Reset Button */
-.filter-reset-btn {
-    min-height: 44px;
-    padding: 10px 14px;
-    background-color: transparent;
-    color: #ffc107;
-    border: 1px solid #ffc107;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-    .filter-reset-btn:hover {
-        background-color: #ffc107;
-        color: #151519;
-    }
-
-/* Responsive Design */
-@media (max-width: 767px) {
-    .cinema-filter {
-        padding: 16px;
-    }
-}

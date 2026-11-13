@@ -63,6 +63,8 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
 
             TempData["Successfully"] = "Register Successfully";
 
+            await _userManager.AddToRoleAsync(user, CD.CUSTOMER);
+
             return RedirectToAction("Login");
         }
 
@@ -115,6 +117,20 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
             TempData["Successfully"] = "Login Successfully";
             return RedirectToAction("Index","Home", new {area = "Customer" });
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
+
+        }
+
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -245,6 +261,7 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
             return RedirectToAction(nameof(Login));
 
         }
+
 
     }
 }

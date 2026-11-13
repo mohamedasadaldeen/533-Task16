@@ -1,10 +1,13 @@
 ﻿using Cairo_Cinema.Data;
 using Cairo_Cinema.Models;
+using Cairo_Cinema.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cairo_Cinema.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN},{CD.EMPLOYEE}")]
     public class CategoryController : Controller
     {
         private readonly IRepository<Category> _categoryRepository;// = new Repository<Category>();
@@ -39,6 +42,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Get Update
         [HttpGet]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
         public async Task<IActionResult> Update(int id)
         {
             var category = await _categoryRepository.GetOneAsync(c => c.Id == id);
@@ -47,6 +51,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Post Update
         [HttpPost]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
         public async Task<IActionResult> Update(Category category)
         {
 
@@ -55,6 +60,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
         public async Task<IActionResult> Delete(int id)
         {
             var category = await _categoryRepository.GetOneAsync(c => c.Id == id);

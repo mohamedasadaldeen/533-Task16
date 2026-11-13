@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cairo_Cinema.Utilities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 namespace Cairo_Cinema.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN},{CD.EMPLOYEE}")]
     public class MovieController : Controller
     {
         private readonly IRepository<Movie> _movieRepository;// = new Repository<Movie>();
@@ -130,6 +133,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Get Update
         [HttpGet]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Update(int id)
         {
             var movie = await _movieRepository.GetOneAsync(m => m.Id == id);
@@ -149,6 +154,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Post Update
         [HttpPost]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Update(Movie movie, IFormFile ImageFile, List<IFormFile> MovieSubImages)
         {
             var movieInDb = await _movieRepository.GetOneAsync(c => c.Id == movie.Id,isTracked:false);
@@ -224,6 +231,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
         }
 
         //Delete SubImage
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> DeleteSubImage(int movieId, string Image)
         {
             var imageInDb = await _movieSubImageRepository.GetOneAsync(m=>m.MovieId == movieId && m.Image == Image);
@@ -240,6 +249,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
             return RedirectToAction(nameof(Update), new {id = movieId});
         }
         //Delete
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Delete(int id)
         {
             var movie = await _movieRepository.GetOneAsync(c => c.Id == id);

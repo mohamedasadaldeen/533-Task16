@@ -1,5 +1,8 @@
 using Cairo_Cinema.Data;
 using Cairo_Cinema.Utilities;
+using Cairo_Cinema.Utilities.DbInitializer;
+using Cairo_Cinema.Utilities.DbSeeding;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +11,7 @@ namespace Cairo_Cinema
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +37,8 @@ namespace Cairo_Cinema
             builder.Services.AddScoped<IRepository<ApplicationUserOtp>, Repository<ApplicationUserOtp>>();
             builder.Services.AddScoped<IMovieSubImageRepository, MovieSubImageRepository>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
+            builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+
             //__________________________________________________________________
             //Identity
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -48,8 +53,22 @@ namespace Cairo_Cinema
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
             //__________________________________________________________________
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                // Redirect paths
+                options.LoginPath = "/Identity/Account/Login"; // Where to redirect unauthenticated users
+                options.AccessDeniedPath = "/Identity/Account/AccessDenied"; // Where to redirect forbidden users
+            });
+            //__________________________________________________________________
+
 
             var app = builder.Build();
+            //
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+                await dbInitializer.InitializeAsync();
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -67,7 +86,7 @@ namespace Cairo_Cinema
             app.MapStaticAssets();
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{area=Identity}/{controller=Account}/{action=Login}/{id?}")
+                pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
             app.Run();

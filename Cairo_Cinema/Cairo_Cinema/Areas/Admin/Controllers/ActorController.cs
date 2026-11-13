@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cairo_Cinema.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles =$"{CD.SUPER_ADMIN},{CD.ADMIN},{CD.EMPLOYEE}")]
     public class ActorController : Controller
     {
         //private readonly ApplicationDbContext _context = new ApplicationDbContext();
@@ -54,6 +56,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Get Update
         [HttpGet]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Update(int id)
         {
             var actor = await _actorRepository.GetOneAsync(c => c.Id == id);
@@ -62,6 +66,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Post Update
         [HttpPost]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Update(Actor actor, IFormFile ImageFile)
         {
             var actorInDb = await _actorRepository.GetOneAsync(c => c.Id == actor.Id, isTracked: false);
@@ -95,6 +101,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
         public async Task<IActionResult> Delete(int id)
         {
             var actor = await _actorRepository.GetOneAsync(c => c.Id == id);

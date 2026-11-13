@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Cairo_Cinema.Utilities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Cairo_Cinema.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN},{CD.EMPLOYEE}")]
     public class CinemaController : Controller
     {
         private readonly IRepository<Cinema> _cinemaRepository;// = new Repository<Cinema>();
@@ -29,7 +32,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Post Create
         [HttpPost]
-        public async Task<IActionResult> Create(Cinema cinema,IFormFile ImageFile)
+        public async Task<IActionResult> Create(Cinema cinema, IFormFile ImageFile)
         {
             if (!ModelState.IsValid)
             {
@@ -39,7 +42,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
             if (ImageFile != null && ImageFile.Length > 0)
             {
                 var fileName = Guid.NewGuid().ToString() + "_" + ImageFile.FileName;
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Cinema" , fileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Cinema", fileName);
                 using (var stream = System.IO.File.Create(filePath))
                 {
                     ImageFile.CopyTo(stream);
@@ -55,6 +58,8 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Get Update
         [HttpGet]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Update(int id)
         {
             var cinema = await _cinemaRepository.GetOneAsync(c => c.Id == id);
@@ -63,10 +68,12 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
 
         //Post Update
         [HttpPost]
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
+
         public async Task<IActionResult> Update(Cinema cinema, IFormFile ImageFile)
         {
-            var cinemaInDb = await _cinemaRepository.GetOneAsync(c => c.Id == cinema.Id,isTracked:false);
-            
+            var cinemaInDb = await _cinemaRepository.GetOneAsync(c => c.Id == cinema.Id, isTracked: false);
+
 
             if (ImageFile != null && ImageFile.Length > 0)
             {
@@ -94,11 +101,12 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
             TempData["Successfully"] = "Updated Successfully";
             return RedirectToAction(nameof(Index));
         }
+        [Authorize(Roles = $"{CD.SUPER_ADMIN},{CD.ADMIN}")]
 
         public async Task<IActionResult> Delete(int id)
         {
             var cinema = await _cinemaRepository.GetOneAsync(c => c.Id == id);
-            var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Cinema",cinema.Image);
+            var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "Cinema", cinema.Image);
             if (System.IO.File.Exists(oldFilePath))
             {
                 System.IO.File.Delete(oldFilePath);

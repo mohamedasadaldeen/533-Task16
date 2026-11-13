@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,95 +21,22 @@
 
     <link rel="stylesheet" href="~/admin/css/styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/admin/css/cairo-dashboard.css" asp-append-version="true" />
-     @* toastr *@
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />  
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    @* toastr *@
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
             crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <!-- Top Navbar -->
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-
-        <a class="navbar-brand ps-3"
-           asp-area="Customer"
-           asp-controller="Home"
-           asp-action="Index">
-            Cairo Cinema
-        </a>
-
-        <!-- Sidebar Toggle -->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0"
-                id="sidebarToggle"
-                type="button"
-                aria-label="Toggle sidebar">
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Navbar Search -->
-        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"
-              role="search">
-
-            <div class="input-group">
-                <input class="form-control"
-                       type="text"
-                       placeholder="Search for..."
-                       aria-label="Search for..." />
-
-               <button class="btn btn-primary"
-                       id="btnNavbarSearch"
-                       type="button"
-                       aria-label="Search">
-               <i class="fas fa-search"></i>
-               </button>
-               </div>
-        </form>
-
-        <!-- User Dropdown -->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-
-            <li class="nav-item dropdown">
-
-                <a class="nav-link dropdown-toggle"
-                   id="navbarDropdown"
-                   href="#"
-                   role="button"
-                   data-bs-toggle="dropdown"
-                   aria-expanded="false"
-                   aria-label="User menu">
-                    <i class="fas fa-user fa-fw"></i>
-                </a>
-
-                <ul class="dropdown-menu dropdown-menu-end"
-                    aria-labelledby="navbarDropdown">
-
-                    <li>
-                        <a class="dropdown-item" href="#">Settings</a>
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item" href="#">Activity Log</a>
-                    </li>
-
-                    <li>
-                        <hr class="dropdown-divider" />
-                    </li>
-
-                    <li>
-                        <a class="dropdown-item" href="#">Logout</a>
-                    </li>
-
-                </ul>
-            </li>
-        </ul>
-    </nav>
 
     <!-- Main Layout -->
     <div id="layoutSidenav">
 
-        <!-- Sidebar -->
+        <!-- Sidebar - Unchanged -->
         <div id="layoutSidenav_nav">
 
             <nav class="sb-sidenav accordion sb-sidenav-dark"
@@ -278,11 +206,211 @@
         <!-- Page Content -->
         <div id="layoutSidenav_content">
 
+            <!-- Cinema Header -->
+            <header class="cinema-header">
+
+                <nav class="navbar navbar-expand-lg cinema-navbar">
+
+                    <div class="container">
+                        <!-- Sidebar Toggle -->
+                        <button class="admin-sidebar-toggle"
+                                id="sidebarToggle"
+                                type="button"
+                                aria-label="Toggle Sidebar"
+                                title="Show / Hide Sidebar">
+                        
+                            <i class="bi bi-layout-sidebar-inset"></i>
+                        
+                        </button>
+
+                        <!-- Logo -->
+                        <a class="navbar-brand cinema-logo d-flex align-items-center"
+                           asp-area="Admin"
+                           asp-controller="Home"
+                           asp-action="Index">
+
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 width="38"
+                                 height="38"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 stroke="#ffc107"
+                                 stroke-width="1.8"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round"
+                                 class="cinema-logo-icon">
+
+                                <rect x="3" y="7" width="18" height="14" rx="2" />
+                                <path d="M7 7 10 3" />
+                                <path d="M14 7 17 3" />
+                                <path d="M10 12 15 14.5 10 17Z"
+                                      fill="#ffc107"
+                                      stroke="#ffc107" />
+                            </svg>
+
+                            <span class="cinema-brand-text">
+                                Cairo <span class="cinema-brand-highlight">Cinema</span>
+                            </span>
+
+                        </a>
+
+                        <!-- Mobile Toggle -->
+                        <button class="navbar-toggler cinema-toggler"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#cinemaNavbar"
+                                aria-controls="cinemaNavbar"
+                                aria-expanded="false"
+                                aria-label="Toggle navigation">
+
+                            <span class="navbar-toggler-icon"></span>
+
+                        </button>
+
+                        <!-- Navbar Content -->
+                        <div class="collapse navbar-collapse" id="cinemaNavbar">
+
+                            <div class="cinema-navbar-content">
+
+                                <!-- Shopping Cart -->
+                                <a class="cinema-cart-btn"
+                                   href="#"
+                                   aria-label="Shopping Cart">
+
+                                    <i class="bi bi-cart3"></i>
+
+                                </a>
+
+                                <!-- Menu -->
+                                <div class="dropdown cinema-menu-wrapper">
+
+                                    <button class="btn cinema-menu-btn"
+                                            type="button"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                            aria-label="Open Menu">
+
+                                        <i class="bi bi-list"></i>
+
+                                    </button>
+
+                                    <ul class="dropdown-menu dropdown-menu-end cinema-dropdown">
+
+                                        <li class="cinema-dropdown-heading">
+                                            <span></span>
+                                            <small>PAGES</small>
+                                            <span></span>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item"
+                                               asp-area="Admin"
+                                               asp-controller="Movie"
+                                               asp-action="Index">
+                                                <i class="bi bi-film"></i>
+                                                Movies
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="bi bi-grid"></i>
+                                                Categories
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="bi bi-building"></i>
+                                                Cinemas
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                <i class="bi bi-people"></i>
+                                                Actors
+                                            </a>
+                                        </li>
+
+                                        <li class="cinema-dropdown-heading cinema-account-heading">
+                                            <span></span>
+                                            <small>ACCOUNT</small>
+                                            <span></span>
+                                        </li>
+                                        @if (!User.Identity.IsAuthenticated)
+                                            {
+                                                    
+                                                
+                                                <li>
+                                                <a class="dropdown-item"
+                                                   asp-area="Identity"
+                                                   asp-controller="Account"
+                                                   asp-action="Login">
+
+                                                    <i class="bi bi-box-arrow-in-right"></i>
+                                                    Login
+
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a class="dropdown-item"
+                                                   asp-area="Identity"
+                                                   asp-controller="Account"
+                                                   asp-action="Register">
+                                            
+                                                    <i class="bi bi-person-plus"></i>
+                                                    Register
+                                            
+                                                </a>
+                                            </li>
+                                            }
+
+                                            else
+                                            {
+                                                <li>
+                                                <a class="dropdown-item"
+                                                   asp-area="Admin"
+                                                   asp-controller="Movie"
+                                                   asp-action="Index">
+                                                <i class="bi bi-person-circle"></i>
+                                               @User.Identity.Name
+
+                                                </a>
+                                                </li>
+
+                                                <li>
+                                                    <a class="dropdown-item cinema-logout-item"
+                                                       asp-area="Identity"
+                                                       asp-controller="Account"
+                                                       asp-action="Logout">
+                                                
+                                                        <i class="bi bi-box-arrow-right"></i>
+                                                        Logout
+                                                
+                                                    </a>
+                                                </li>
+                                            }
+                                    </ul>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </nav>
+
+            </header>
+
             <main role="main" class="dashboard-page-content">
                 @RenderBody()
             </main>
 
-            <!-- Footer -->
+            <!-- Footer - Unchanged -->
             <footer class="py-4 bg-light mt-auto">
 
                 <div class="container-fluid px-4">
@@ -309,7 +437,6 @@
     <!-- JavaScript -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
-    <!-- Load Bootstrap only once -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/admin/js/scripts.js" asp-append-version="true"></script>
@@ -321,12 +448,14 @@
             asp-append-version="true"></script>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <!-- Toaster -->
+
+    <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 </html>
-

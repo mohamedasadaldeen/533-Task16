@@ -242,29 +242,35 @@
                                          class="actor-avatar"
                                          loading="lazy" />
                                 </td>
+                                @if (User.IsInRole(CD.SUPER_ADMIN) || User.IsInRole(CD.ADMIN))
+                                {
+                                    <td>
+                                        <a asp-area="Admin"
+                                           asp-controller="Actor"
+                                           asp-action="Update"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-warning actor-action"
+                                           title="Edit Actor"
+                                           aria-label="Edit Actor">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
 
-                                <td>
-                                    <a asp-area="Admin"
-                                       asp-controller="Actor"
-                                       asp-action="Update"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-outline-warning actor-action"
-                                       title="Edit Actor"
-                                       aria-label="Edit Actor">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-
-                                    <a asp-area="Admin"
-                                       asp-controller="Actor"
-                                       asp-action="Delete"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-outline-danger actor-action"
-                                       title="Delete Actor"
-                                       aria-label="Delete Actor"
-                                       onclick="confirmDelete(event, this)">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                </td>
+                                        <a asp-area="Admin"
+                                           asp-controller="Actor"
+                                           asp-action="Delete"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-danger actor-action"
+                                           title="Delete Actor"
+                                           aria-label="Delete Actor"
+                                           onclick="confirmDelete(event, this)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>No Actions !!!</td>
+                                }
                             </tr>
                         }
                     </tbody>

@@ -1,22 +1,29 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Cairo_Cinema</title>
+
     <script type="importmap"></script>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link href="~/customer/css/site.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-    @* toastr *@
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="~/customer/css/site.css" asp-append-version="true" />
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
     <header class="cinema-header">
+
         <nav class="navbar navbar-expand-lg cinema-navbar">
+
             <div class="container">
 
                 <!-- Logo -->
@@ -46,9 +53,10 @@
                     <span class="cinema-brand-text">
                         Cairo <span class="cinema-brand-highlight">Cinema</span>
                     </span>
+
                 </a>
 
-                <!-- Mobile Toggle Button -->
+                <!-- Mobile Toggle -->
                 <button class="navbar-toggler cinema-toggler"
                         type="button"
                         data-bs-toggle="collapse"
@@ -58,88 +66,179 @@
                         aria-label="Toggle navigation">
 
                     <span class="navbar-toggler-icon"></span>
+
                 </button>
 
-                <!-- Navbar Links -->
+                <!-- Navbar Content -->
                 <div class="collapse navbar-collapse" id="cinemaNavbar">
 
-                    <ul class="navbar-nav mx-auto cinema-nav-links">
+                   
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="#">
-                                Home
-                            </a>
-                        </li>
+                    <div class="cinema-navbar-content">
+                        <!-- Shopping Cart -->
+                        <a class="cinema-cart-btn"
+                           href="#"
+                           aria-label="Shopping Cart">
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="#">
-                                Movies
-                            </a>
-                        </li>
+                            <i class="bi bi-cart3"></i>
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="#">
-                                Categories
-                            </a>
-                        </li>
+                        </a>
+                        <!-- Menu -->
+                        <div class="dropdown cinema-menu-wrapper">
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="#">
-                                Cinemas
-                            </a>
-                        </li>
+                            <button class="btn cinema-menu-btn"
+                                    type="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                    aria-label="Open Menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link"
-                               href="#">
-                                Actors
-                            </a>
-                        </li>
+                                <i class="bi bi-list"></i>
 
-                    </ul>
+                            </button>
 
-                    <!-- Search -->
-                    <form class="cinema-search-form"
-                          asp-controller="Movie"
-                          asp-action="Index"
-                          method="get">
+                            <ul class="dropdown-menu dropdown-menu-end cinema-dropdown">
 
-                        <input class="form-control cinema-search-input"
-                               type="search"
-                               name="search"
-                               placeholder="Search movies..."
-                               aria-label="Search movies" />
+                                <!-- Pages -->
+                                <li class="cinema-dropdown-heading">
+                                    <span></span>
+                                    <small>PAGES</small>
+                                    <span></span>
+                                </li>
 
-                        <button class="btn cinema-search-btn"
-                                type="submit"
-                                aria-label="Search">
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-controller="Home"
+                                       asp-action="Index">
+                                        <i class="bi bi-house-door"></i>
+                                        Home
+                                    </a>
+                                </li>
 
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-controller="Movie"
+                                       asp-action="Index">
+                                        <i class="bi bi-film"></i>
+                                        Movies
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-grid"></i>
+                                        Categories
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-building"></i>
+                                        Cinemas
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="bi bi-people"></i>
+                                        Actors
+                                    </a>
+                                </li>
+
+                                <!-- Account -->
+                                <li class="cinema-dropdown-heading cinema-account-heading">
+                                    <span></span>
+                                    <small>ACCOUNT</small>
+                                    <span></span>
+                                </li>
+                                @if (!User.Identity.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a class="dropdown-item"
+                                            asp-area="Identity"
+                                            asp-controller="Account"
+                                            asp-action="Login">
+
+                                                <i class="bi bi-box-arrow-in-right"></i>
+                                                Login
+
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a class="dropdown-item"
+                                            asp-area="Identity"
+                                            asp-controller="Account"
+                                            asp-action="Register">
+
+                                                <i class="bi bi-person-plus"></i>
+                                                Register
+
+                                            </a>
+                                        </li>
+
+                                    }
+                                    else
+                                    {
+                   
+
+                                    <li>
+                                        <a class="dropdown-item cinema-logout-item"
+                                           asp-area="Identity"
+                                           asp-controller="Account"
+                                           asp-action="Logout">
+
+                                            <i class="bi bi-box-arrow-right"></i>
+                                            Logout
+
+                                        </a>
+                                    </li>
+                                    }
+
+                                <li>
+                                    <a class="dropdown-item"
+                                       asp-area="Customer"
+                                       asp-controller="Home"
+                                       asp-action="Index">
+                                        <i class="bi bi-person-circle"></i>
+                                        @User.Identity.Name
+
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                    </div>
 
                 </div>
+
             </div>
+
         </nav>
+
     </header>
 
-
     <div class="container">
+
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+
     </div>
 
+    <!-- Footer -->
     <footer class="cinema-footer">
+
         <div class="container">
+
             <div class="footer-content">
 
-                <a asp-controller="Home" asp-action="Index" class="footer-logo">
+                <a asp-controller="Home"
+                   asp-action="Index"
+                   class="footer-logo">
+
                     Cairo <span>Cinema</span>
+
                 </a>
 
                 <div class="footer-links">
@@ -152,29 +251,41 @@
             </div>
 
             <div class="footer-bottom">
-                <p>© @DateTime.Now.Year Cairo Cinema. All rights reserved.</p>
+
+                <p>
+                    © @DateTime.Now.Year Cairo Cinema. All rights reserved.
+                </p>
 
                 <div class="footer-social">
+
                     <a href="https://www.facebook.com/" aria-label="Facebook">
                         <i class="bi bi-facebook"></i>
                     </a>
+
                     <a href="https://www.instagram.com/" aria-label="Instagram">
                         <i class="bi bi-instagram"></i>
                     </a>
+
                     <a href="https://www.youtube.com/" aria-label="YouTube">
                         <i class="bi bi-youtube"></i>
                     </a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Toaster -->
+
+    <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

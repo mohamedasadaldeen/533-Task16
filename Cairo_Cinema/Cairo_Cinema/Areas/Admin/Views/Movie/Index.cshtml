@@ -472,26 +472,33 @@
                                     }
                                 </td>
 
-                                <td>
-                                    <a asp-controller="Movie"
-                                       asp-action="Update"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-outline-warning movie-action"
-                                       title="Edit Movie"
-                                       aria-label="Edit Movie">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
+                                @if (User.IsInRole(CD.SUPER_ADMIN) || User.IsInRole(CD.ADMIN))
+                                {
+                                    <td>
+                                        <a asp-controller="Movie"
+                                           asp-action="Update"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-warning movie-action"
+                                           title="Edit Movie"
+                                           aria-label="Edit Movie">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
 
-                                    <a asp-controller="Movie"
-                                       asp-action="Delete"
-                                       asp-route-id="@item.Id"
-                                       class="btn btn-outline-danger movie-action"
-                                       title="Delete Movie"
-                                       aria-label="Delete Movie"
-                                       onclick="confirmDelete(event, this)">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </a>
-                                </td>
+                                        <a asp-controller="Movie"
+                                           asp-action="Delete"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-danger movie-action"
+                                           title="Delete Movie"
+                                           aria-label="Delete Movie"
+                                           onclick="confirmDelete(event, this)">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>No Actions !!!</td>
+                                }
                             </tr>
                         }
                     </tbody>
