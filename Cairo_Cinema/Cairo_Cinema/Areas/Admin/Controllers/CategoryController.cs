@@ -17,6 +17,7 @@ namespace Cairo_Cinema.Areas.Admin.Controllers
             _categoryRepository = categoryRepository;
         }
 
+        //Index
         public async Task<IActionResult> Index()
         {
             var categories = await _categoryRepository.GetListAsync();

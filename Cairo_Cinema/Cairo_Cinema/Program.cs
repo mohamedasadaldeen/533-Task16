@@ -46,7 +46,7 @@ namespace Cairo_Cinema
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = true;
                 options.Lockout.MaxFailedAccessAttempts = 10;
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);   
                 options.Lockout.AllowedForNewUsers = true;
                 //options.SignIn.RequireConfirmedEmail = true;
             })

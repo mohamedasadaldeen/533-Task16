@@ -27,10 +27,8 @@
             <div class="container">
 
                 <!-- Logo -->
-                <a class="navbar-brand cinema-logo d-flex align-items-center"
-                   asp-controller="Home"
-                   asp-action="Index">
-
+                <a class="navbar-brand cinema-logo d-flex align-items-center">
+                   
                     <svg xmlns="http://www.w3.org/2000/svg"
                          width="38"
                          height="38"
@@ -194,17 +192,20 @@
                                     </li>
                                     }
 
-                                <li>
-                                    <a class="dropdown-item"
-                                       asp-area="Customer"
-                                       asp-controller="Home"
-                                       asp-action="Index">
-                                        <i class="bi bi-person-circle"></i>
-                                        @User.Identity.Name
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area="Identity"
+                                           asp-controller="Profile"
+                                           asp-action="Index">
+                                            <i class="bi bi-person-circle"></i>
+                                            @User.Identity.Name
 
-                                    </a>
-                                </li>
-                            </ul>
+                                        </a>
+                                    </li>
+                                    }
+                                </ul>
 
                         </div>
 
@@ -233,9 +234,8 @@
 
             <div class="footer-content">
 
-                <a asp-controller="Home"
-                   asp-action="Index"
-                   class="footer-logo">
+                 
+                <a class="footer-logo">
 
                     Cairo <span>Cinema</span>
 

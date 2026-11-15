@@ -43,7 +43,7 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
                 UserName = registerVM.UserName,
                 Email = registerVM.Email,
             };
-            var result = await _userManager.CreateAsync(user,registerVM.Password);
+            var result = await _userManager.CreateAsync(user, registerVM.Password);
             if (!result.Succeeded)
             {
                 foreach (var error in result.Errors)
@@ -54,7 +54,7 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
             }
 
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var link = Url.Action(nameof(ConfirmEmail),"Account" , new {area = "Identity" , id = user.Id , token },Request.Scheme);
+            var link = Url.Action(nameof(ConfirmEmail), "Account", new { area = "Identity", id = user.Id, token }, Request.Scheme);
             await _emailSender.SendEmailAsync(
                 registerVM.Email,
                 "Cairo_Cinema Confirmation Email",
@@ -72,7 +72,7 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
         public async Task<IActionResult> ConfirmEmail(string id, string token)
         {
             var user = await _userManager.FindByIdAsync(id);
-            var result = await _userManager.ConfirmEmailAsync(user,token);
+            var result = await _userManager.ConfirmEmailAsync(user, token);
             if (!result.Succeeded)
             {
                 TempData["Error_Validation"] = "Invalid Confirmation Email";
@@ -91,18 +91,19 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVm)
         {
-            var user = await _userManager.FindByEmailAsync(loginVm.UserNameOrEmail) ?? 
+            var user = await _userManager.FindByEmailAsync(loginVm.UserNameOrEmail) ??
                        await _userManager.FindByNameAsync(loginVm.UserNameOrEmail);
-            if(user == null)
+            if (user == null)
             {
                 ModelState.AddModelError("", "Invalid UserName Or Email Or Password");
                 return View(loginVm);
             }
-            var result = await _signInManager.PasswordSignInAsync(user,loginVm.Password,loginVm.RememberMe,true);
-            if (!result.Succeeded) {
+            var result = await _signInManager.PasswordSignInAsync(user, loginVm.Password, loginVm.RememberMe, true);
+            if (!result.Succeeded)
+            {
                 if (result.IsLockedOut)
                 {
-                ModelState.AddModelError("", "To Many attempts pls try again later");
+                    ModelState.AddModelError("", "You are Locked Please again later");
                 }
                 else if (result.IsNotAllowed)
                 {
@@ -115,7 +116,19 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
                 return View(loginVm);
             }
             TempData["Successfully"] = "Login Successfully";
-            return RedirectToAction("Index","Home", new {area = "Customer" });
+
+            if (
+                User.IsInRole(CD.SUPER_ADMIN) ||
+                User.IsInRole(CD.ADMIN) ||
+                User.IsInRole(CD.EMPLOYEE))
+            {
+                return RedirectToAction("Index", "Movie", new { area = "Admin" });
+            }
+
+            else
+            {
+                return RedirectToAction("Index", "Home", new { area = "Customer" });
+            }
 
         }
 
@@ -183,8 +196,8 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
                 return View(forgetPasswordVM);
             }
 
-            var otp = new Random().Next(1000 , 9999).ToString();
-            var applicationUserOtp = new ApplicationUserOtp(otp ,user.Id);
+            var otp = new Random().Next(1000, 9999).ToString();
+            var applicationUserOtp = new ApplicationUserOtp(otp, user.Id);
             await _applicationUserOtpRepository.AddAsync(applicationUserOtp);
             await _applicationUserOtpRepository.CommitAsync();
             await _emailSender.SendEmailAsync(
@@ -193,13 +206,13 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
                 $"<h3>Use This {otp} to Reset Your Password</h3>"
             );
 
-            return RedirectToAction(nameof(VerifyOtp), new {userId = user.Id});
+            return RedirectToAction(nameof(VerifyOtp), new { userId = user.Id });
         }
 
         [HttpGet]
         public IActionResult VerifyOtp(string userId)
         {
-            return View(new VerifyOtpVM(){ UserId = userId});
+            return View(new VerifyOtpVM() { UserId = userId });
         }
 
         [HttpPost]
@@ -211,13 +224,14 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
                 ModelState.AddModelError("", "Invalid User");
                 return View(verifyOtpVM);
             }
-            var applicationUserOtps = await _applicationUserOtpRepository.GetListAsync( a=>
-                a.ApplicationUserId == user.Id && 
+            var applicationUserOtps = await _applicationUserOtpRepository.GetListAsync(a =>
+                a.ApplicationUserId == user.Id &&
                 a.IsValid &&
                 a.ValidTo > DateTime.UtcNow
             );
-            var applicationUserOtp = applicationUserOtps.OrderBy(a=>a.ApplicationUserId).LastOrDefault();
-            if (applicationUserOtp == null || applicationUserOtp.OTP != verifyOtpVM.OTP) {
+            var applicationUserOtp = applicationUserOtps.OrderBy(a => a.ApplicationUserId).LastOrDefault();
+            if (applicationUserOtp == null || applicationUserOtp.OTP != verifyOtpVM.OTP)
+            {
 
                 ModelState.AddModelError("", "Invalid OTP / Expired");
                 return View(verifyOtpVM);
@@ -226,13 +240,13 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
             applicationUserOtp.IsValid = false;
             await _applicationUserOtpRepository.CommitAsync();
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            return RedirectToAction(nameof(ResetPassword), new {userId = user.Id, token});
+            return RedirectToAction(nameof(ResetPassword), new { userId = user.Id, token });
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string userId ,string token)
+        public IActionResult ResetPassword(string userId, string token)
         {
-            return View(new ResetPasswordVM() { UserId = userId,Token = token});
+            return View(new ResetPasswordVM() { UserId = userId, Token = token });
         }
 
         [HttpPost]

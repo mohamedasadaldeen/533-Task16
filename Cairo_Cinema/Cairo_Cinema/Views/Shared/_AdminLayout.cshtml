@@ -224,10 +224,8 @@
                         </button>
 
                         <!-- Logo -->
-                        <a class="navbar-brand cinema-logo d-flex align-items-center"
-                           asp-area="Admin"
-                           asp-controller="Home"
-                           asp-action="Index">
+                        <a class="navbar-brand cinema-logo d-flex align-items-center">
+                           
 
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  width="38"
@@ -369,16 +367,6 @@
 
                                             else
                                             {
-                                                <li>
-                                                <a class="dropdown-item"
-                                                   asp-area="Admin"
-                                                   asp-controller="Movie"
-                                                   asp-action="Index">
-                                                <i class="bi bi-person-circle"></i>
-                                               @User.Identity.Name
-
-                                                </a>
-                                                </li>
 
                                                 <li>
                                                     <a class="dropdown-item cinema-logout-item"
@@ -392,6 +380,19 @@
                                                     </a>
                                                 </li>
                                             }
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                    <li>
+                                        <a class="dropdown-item"
+                                           asp-area="Identity"
+                                           asp-controller="Profile"
+                                           asp-action="Index">
+                                            <i class="bi bi-person-circle"></i>
+                                            @User.Identity.Name
+
+                                        </a>
+                                    </li>
+                                    }
                                     </ul>
 
                                 </div>
