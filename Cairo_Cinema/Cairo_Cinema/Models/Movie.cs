@@ -16,6 +16,7 @@ namespace Cairo_Cinema.Models
         public decimal Price { get; set; }
         [Range(1,5)]
         public decimal Rate { get; set; }
+        public decimal Quantity { get; set; }
         public bool Status{ get; set; }
         public DateTime DateTime{ get; set; }
         public string? MainImage { get; set; } = "default.jpg";

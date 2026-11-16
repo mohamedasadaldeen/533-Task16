@@ -1,0 +1,230 @@
+﻿@model MovieWithRelatedVM
+
+<!-- Movie Details Section -->
+<section class="movie-details-page">
+
+    <div class="container-fluid">
+
+        <div class="movie-details-container">
+
+            <div class="row g-5 align-items-center">
+
+                <!-- Movie Poster -->
+                <div class="col-lg-5 col-md-6">
+
+                    <div class="movie-details-poster">
+
+                        <img src="~/Images/Movie/@Model.Movie.MainImage"
+                             alt="Movie Poster"
+                             class="movie-details-image" />
+                    </div>
+
+                </div>
+
+                <!-- Movie Information -->
+                <div class="col-lg-7 col-md-6">
+
+                    <div class="movie-details-info">
+
+                        <div class="movie-details-label">
+                            <i class="bi bi-film"></i>
+                            @Model.Movie.Category.Name
+                        </div>
+
+                        <h1 class="movie-details-title">
+                            @Model.Movie.Name
+                        </h1>
+
+                        <!-- Rating -->
+                        <div class="movie-details-rating">
+
+                            <i class="bi bi-star-fill"></i>
+
+                            <span>@Model.Movie.Rate</span>
+
+                            <span class="rating-out-of">/ 5</span>
+
+                        </div>
+
+                        <!-- Movie Meta -->
+                        <div class="movie-details-meta">
+
+                            <div>
+                                <i class="bi bi-calendar-event"></i>
+                                <span>Release Date</span>
+                                <strong>@Model.Movie.DateTime</strong>
+                            </div>
+
+                            <div>
+                                <i class="bi bi-building"></i>
+                                <span>Cinemas</span>
+                                <strong>
+                                    @foreach (var item in Model.RelatedMovies)
+                                    {
+                                        <span>|@item.Cinema.Name</span>
+                                    }
+                                </strong>
+                            </div>
+
+                            <div>
+                                <i class="bi bi-person-video3"></i>
+                                <span>Main Actors</span>
+                                <strong>
+                                    @foreach(var item in Model.RelatedMovies)
+                                    {
+                                        <span>|@item.Actor.Name </span>
+                                    }
+                                </strong>
+                            </div>
+
+                        </div>
+
+                        <div class="movie-details-divider"></div>
+
+                        <!-- Description -->
+                        <h5 class="movie-details-section-title">
+                            About This Movie
+                        </h5>
+
+                        <p class="movie-details-description">
+                            @Model.Movie.Description
+                        </p>
+
+                        <!-- Price -->
+                        <div class="movie-details-price">
+
+                            <span>Ticket Price</span>
+
+                            <strong>
+                                @Model.Movie.Price <small>EGP</small>
+                            </strong>
+
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="movie-details-actions">
+
+                            <form asp-controller="Cart" asp-action="AddToCart" >
+
+                                <input hidden name="movieId" value="@Model.Movie.Id" />
+
+                                <div class="movie-details-actions">
+
+                                    <div class="movie-booking-btn">
+
+                                        <div class="booking-title">
+                                            <i class="bi bi-ticket-perforated-fill"></i>
+                                            <span>Book Ticket</span>
+                                        </div>
+
+                                        <div class="ticket-counter">
+
+                                            <button type="button" onclick="changeTickets(-1)">−</button>
+
+                                            <input type="number"
+                                                   id="ticketCount"
+                                                   name="count"
+                                                   value="1"
+                                                   min="1"
+                                                   max="100"
+                                                   readonly />
+
+                                            <button type="button" onclick="changeTickets(1)">+</button>
+
+                                            
+
+                                        </div>
+                                        <button type="submit" class="cart-submit-btn">
+                                            <i class="bi bi-cart-plus-fill"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                            <a asp-controller="Home"
+                               asp-action="Index"
+                               class="movie-back-btn">
+
+                                <i class="bi bi-arrow-left"></i>
+                                Back to Movies
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Recommended Movies -->
+            <div class="movie-gallery-section">
+
+                <div class="movie-gallery-heading">
+
+                    <div>
+                        <h3>Recommended Movies</h3>
+                        <p>Discover more movies you might enjoy</p>
+                    </div>
+
+                    <i class="bi bi-film"></i>
+
+                </div>
+
+                <div class="row g-4">
+
+                    @foreach (var item in Model.RelatedMovies)
+                    {
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <div class="card h-100"
+                                 style="background-color: #202027; border: 1px solid #303038; color: #fff;">
+
+                                <!-- Product image -->
+                                <img class="card-img-top"
+                                     src="~/Images/Movie/@item.MainImage"
+                                     alt="@item.Name"
+                                     style="width: 100%; height: auto; object-fit: contain; background-color: #151519;" />
+
+                                <!-- Product details -->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+
+                                        <!-- Product name -->
+                                        <h5 class="fw-bolder">@item.Name</h5>
+
+                                        <!-- Product price -->
+                                        <span style="color: #ffc107;">
+                                            @item.Price EGP
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                                <!-- Product actions -->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-warning mt-auto"
+                                           asp-controller="Home"
+                                           asp-action="CinemaDetails"
+                                           asp-route-id="@item.Id">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>

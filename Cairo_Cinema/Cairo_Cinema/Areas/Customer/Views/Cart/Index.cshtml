@@ -1,0 +1,361 @@
+﻿@model IEnumerable<Cart>
+
+<style>
+    /* ===================== Cart Page ===================== */
+    .cart-page {
+        background-color: rgba(21, 21, 25, 0.6);
+        color: #fff;
+        padding: 40px 0;
+        margin-top: 1rem;
+        border-radius: 12px;
+    }
+
+    .cart-page .cart-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+
+    /* ---------- Header ---------- */
+    .cart-page .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 0 0 20px;
+    }
+
+    .cart-page .cart-header h3 {
+        color: #ffc107;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .cart-page .cart-header p {
+        margin: 0;
+    }
+
+    .cart-page .text-muted {
+        color: #a5a5ad !important;
+    }
+
+    .cart-page a.text-body {
+        color: #ffc107 !important;
+        text-decoration: none;
+    }
+
+    .cart-page a.text-body:hover {
+        color: #fff !important;
+    }
+
+    /* ---------- Cards (shared) ---------- */
+    .cart-page .card {
+        background-color: #202027;
+        border: 1px solid #303038;
+        border-radius: 12px;
+        color: #fff;
+        margin: 0 0 16px;
+    }
+
+    .cart-page .card-body {
+        background-color: transparent;
+    }
+
+    /* ---------- Cart Item ---------- */
+    .cart-page .cart-item .card-body {
+        padding: 14px 20px;
+    }
+
+    .cart-page .cart-item img {
+        width: 100%;
+        max-width: 90px;
+        height: 90px;
+        object-fit: cover;
+        border: 1px solid #303038;
+        border-radius: 8px;
+        display: block;
+    }
+
+    .cart-page .cart-item .lead {
+        color: #ffc107;
+        font-size: 17px;
+        font-weight: 600;
+        margin: 0 0 4px;
+    }
+
+    .cart-page .cart-item .item-price {
+        color: #cfcfd6;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .cart-page .cart-item h5 {
+        color: #ffc107;
+        font-weight: 700;
+        font-size: 17px;
+        margin: 0;
+    }
+
+    /* ---------- Quantity ---------- */
+    .cart-page .qty-box {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .cart-page .btn-link {
+        color: #ffc107;
+        text-decoration: none;
+        padding: 4px 8px !important;
+        line-height: 1;
+    }
+
+    .cart-page .btn-link:hover {
+        color: #fff;
+    }
+
+    .cart-page input[type="number"].form-control {
+        width: 56px;
+        height: 36px;
+        padding: 4px;
+        background-color: #151519 !important;
+        border: 1px solid #44444e !important;
+        color: #ffc107 !important;
+        -webkit-text-fill-color: #ffc107 !important;
+        text-align: center;
+        font-weight: 700;
+        border-radius: 7px;
+        box-shadow: none;
+        opacity: 1 !important;
+        -moz-appearance: textfield;
+    }
+
+    .cart-page input[type="number"]::-webkit-outer-spin-button,
+    .cart-page input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .cart-page .text-danger {
+        color: #dc3545 !important;
+        transition: 0.3s;
+    }
+
+    .cart-page .text-danger:hover {
+        color: #ff6b6b !important;
+    }
+
+    /* ---------- Discount Code ---------- */
+    .cart-page .cart-promo .card-body {
+        padding: 18px 20px;
+    }
+
+    .cart-page .cart-promo .form-label {
+        display: block;
+        color: #a5a5ad;
+        font-size: 14px;
+        margin: 0 0 8px;
+    }
+
+    .cart-page .promo-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .cart-page .promo-row input[type="text"] {
+        flex: 1;
+        height: 44px;
+        background-color: #151519 !important;
+        border: 1px solid #44444e !important;
+        color: #fff !important;
+        border-radius: 8px;
+        padding: 8px 14px;
+        box-shadow: none;
+    }
+
+    .cart-page .promo-row input[type="text"]::placeholder {
+        color: #6f6f7a;
+    }
+
+    .cart-page .promo-row input[type="text"]:focus {
+        border-color: #ffc107 !important;
+        box-shadow: 0 0 0 0.15rem rgba(255, 193, 7, 0.2);
+    }
+
+    .cart-page .btn-outline-warning {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        min-width: 110px;
+        padding: 0 20px !important;
+        line-height: 1;
+        border: 1px solid #ffc107;
+        border-radius: 8px;
+        color: #ffc107;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .cart-page .btn-outline-warning:hover {
+        background-color: #ffc107;
+        color: #151519;
+    }
+
+    /* ---------- Checkout ---------- */
+    .cart-page .cart-checkout {
+        margin-bottom: 0; /* آخر عنصر بدون مارجن سفلي */
+    }
+
+    .cart-page .cart-checkout .card-body {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 20px;
+    }
+
+    .cart-page .btn-shopping {
+        height: 46px;
+        min-width: 200px;
+        text-decoration: none;
+    }
+
+    .cart-page .btn-warning {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 46px;
+        min-width: 200px;
+        padding: 0 28px;
+        line-height: 1;
+        background-color: #ffc107;
+        border: 1px solid #ffc107;
+        border-radius: 8px;
+        color: #151519;
+        font-weight: 700;
+        transition: 0.3s;
+    }
+
+    .cart-page .btn-warning:hover {
+        background-color: #e0a800;
+        border-color: #e0a800;
+        color: #151519;
+    }
+
+    /* ---------- Responsive ---------- */
+    @@media (max-width: 768px) {
+        .cart-page {
+            padding: 25px 0;
+        }
+
+        .cart-page .cart-wrapper {
+            padding: 0 15px;
+        }
+
+        .cart-page .cart-item .card-body {
+            padding: 14px;
+        }
+
+        .cart-page .cart-item img {
+            max-width: 100%;
+            height: 140px;
+        }
+
+        .cart-page .promo-row {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .cart-page .btn-outline-warning,
+        .cart-page .btn-warning {
+            width: 100%;
+        }
+
+        .cart-page .cart-checkout .card-body {
+            flex-direction: column-reverse;
+            align-items: stretch;
+            justify-content: center;
+        }
+    }
+</style>
+
+<section class="cart-page">
+  <div class="cart-wrapper">
+
+    <div class="cart-header">
+      <h3 class="fw-normal mb-0">Shopping Cart</h3>
+      <div>
+        <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
+              class="fas fa-angle-down mt-1"></i></a></p>
+      </div>
+    </div>
+
+    @foreach(var item in Model)
+    {
+        <div class="card cart-item rounded-3">
+          <div class="card-body">
+            <div class="row g-3 d-flex justify-content-between align-items-center">
+              <div class="col-md-2 col-lg-2 col-xl-2">
+                <img src="~/images/Movie/@item.Movie.MainImage"
+                  class="img-fluid rounded-3" alt="@item.Movie.Name">
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-3">
+                <p class="lead fw-normal">@item.Movie.Name</p>
+                <p class="item-price fw-normal">Price: @(item.Movie.Price.ToString("C"))</p>
+              </div>
+              <div class="col-md-3 col-lg-3 col-xl-2 qty-box">
+                <a href="~/Customer/Cart/DecrementMovie?movieId=@item.MovieId" data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
+                  onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                  <i class="fas fa-minus"></i>
+                </a>
+
+                <input id="qty-@item.MovieId" min="0" name="quantity" value="@item.Count" type="number"
+                  class="form-control form-control-sm" disabled />
+
+                <a href="~/Customer/Cart/IncrementMovie?movieId=@item.MovieId" data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
+                  onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                  <i class="fas fa-plus"></i>
+                </a>
+              </div>
+              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                <h5 class="mb-0">Total: @((item.Movie.Price * item.Count).ToString("C"))</h5>
+              </div>
+              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                <a href="~/Customer/Cart/DeleteMovie?movieId=@item.MovieId" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+    }
+
+    <div class="card cart-promo">
+      <div class="card-body">
+        <label class="form-label" for="discountCode">Discount code</label>
+        <div class="promo-row">
+          <input type="text" id="discountCode" class="form-control form-control-lg" placeholder="Enter your code" />
+          <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-warning btn-lg">Apply</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cart-checkout">
+      <div class="card-body">
+        <a asp-controller="Home" asp-action="Index" class="btn btn-outline-warning btn-lg btn-shopping">
+          <i class="fas fa-arrow-left me-2"></i> Go to Shopping
+        </a>
+        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg">
+          Proceed to Pay <i class="fas fa-arrow-right ms-2"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+@functions {
+    public object media { get; private set; }
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

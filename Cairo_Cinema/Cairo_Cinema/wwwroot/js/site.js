@@ -1,4 +1,14 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿//Book Ticket
+function changeTickets(value) {
 
-// Write your JavaScript code.
+    const input = document.getElementById("ticketCount");
+
+    let count = parseInt(input.value);
+
+    count += value;
+
+    if (count < 1) count = 1;
+    if (count > 100) count = 100;
+
+    input.value = count;
+}

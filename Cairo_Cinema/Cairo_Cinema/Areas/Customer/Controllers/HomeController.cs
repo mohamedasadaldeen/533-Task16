@@ -11,16 +11,20 @@ namespace Cairo_Cinema.Areas.Customer.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;// = new ApplicationDbContext();
+        private readonly IRepository<Movie> _movieRepository;// = new ApplicationDbContext();
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, IRepository<Movie> movieRepository)
         {
             _context = context;
+            _movieRepository = movieRepository;
         }
 
-        public IActionResult Index(FilterVM filter)
+        public async Task<IActionResult> Index(FilterVM filter)
         {
-            var movies = _context.Movies.AsQueryable();
-            movies = movies.Include(m => m.Category).Include(m => m.Actor);
+            //var movies = _context.Movies.AsQueryable();
+            //movies = movies.Include(m => m.Category).Include(m => m.Actor);
+            var movies = await _movieRepository.GetListAsync(includes : [m => m.Category, m => m.Actor]);
+
             if (filter._Price > 0)
             {
                 movies = movies.Where(m => m.Price.Equals(filter._Price));
@@ -51,9 +55,16 @@ namespace Cairo_Cinema.Areas.Customer.Controllers
             return View(movies.ToList());
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> CinemaDetails(int id)
         {
-            return View();
+            var movie = await _movieRepository.GetOneAsync(m=> m.Id == id);
+            if (movie == null) return NotFound();
+            var relatedMovies = await _movieRepository.GetListAsync(includes: [m => m.Category, m => m.Actor, m => m.Cinema]);
+            relatedMovies = relatedMovies.Where(m => m.Id != id).OrderBy(m => Guid.NewGuid()).Take(4);
+            return View(new MovieWithRelatedVM(){
+                Movie = movie,
+                RelatedMovies = relatedMovies,
+            });
         }
 
     }

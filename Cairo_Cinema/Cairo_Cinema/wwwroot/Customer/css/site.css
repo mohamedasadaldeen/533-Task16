@@ -906,7 +906,514 @@ body {
     transition: all 0.2s ease;
 }
 
-    .cinema-cart-btn:hover {
+.cinema-cart-btn:hover {
+    color: #151519;
+    background-color: #ffc107;
+}
+
+
+/* =========================================================
+   MOVIE DETAILS PAGE
+========================================================= */
+
+.movie-details-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 45px 24px 60px;
+    color: #ffffff;
+    background: transparent;
+}
+
+.movie-details-container {
+    width: 100%;
+    max-width: 1250px;
+    margin: auto;
+}
+
+/* Poster */
+
+.movie-details-poster {
+    position: relative;
+    width: 100%;
+    height: 570px;
+    overflow: hidden;
+    background-color: #202027;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
+}
+
+.movie-details-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+
+.movie-details-category {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    padding: 8px 16px;
+    color: #151519;
+    background-color: #ffc107;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* Information */
+
+.movie-details-info {
+    padding: 15px 5px;
+}
+
+.movie-details-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    color: #ffc107;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.movie-details-title {
+    margin-bottom: 15px;
+    color: #ffffff;
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.movie-details-rating {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 28px;
+    color: #ffc107;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+    .movie-details-rating i {
+        font-size: 19px;
+    }
+
+.rating-out-of {
+    color: #888888;
+    font-size: 14px;
+}
+
+/* Meta */
+
+.movie-details-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 19px;
+}
+
+    .movie-details-meta > div {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #aaaaaa;
+        font-size: 14px;
+    }
+
+    .movie-details-meta i {
+        width: 20px;
+        color: #ffc107;
+        font-size: 17px;
+    }
+
+    .movie-details-meta span {
+        min-width: 105px;
+    }
+
+    .movie-details-meta strong {
+        color: #eeeeee;
+        font-weight: 600;
+    }
+
+.movie-details-divider {
+    height: 1px;
+    margin: 28px 0;
+    background-color: #35353d;
+}
+
+/* Description */
+
+.movie-details-section-title {
+    margin-bottom: 13px;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.movie-details-description {
+    margin-bottom: 25px;
+    color: #aaaaaa;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* Price */
+
+.movie-details-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 350px;
+    margin-bottom: 28px;
+    padding: 16px 20px;
+    background-color: #202027;
+    border: 1px solid #35353d;
+    border-radius: 9px;
+}
+
+    .movie-details-price span {
+        color: #aaaaaa;
+        font-size: 14px;
+    }
+
+    .movie-details-price strong {
+        color: #ffc107;
+        font-size: 24px;
+        font-weight: 800;
+    }
+
+    .movie-details-price small {
+        font-size: 13px;
+    }
+
+/* Buttons */
+
+.movie-details-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.movie-booking-btn,
+.movie-back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    padding: 11px 20px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.movie-booking-btn {
+    color: #151519;
+    background-color: #ffc107;
+    border: 1px solid #ffc107;
+}
+
+    .movie-booking-btn:hover {
+        color: #151519;
+        background-color: #e5ac00;
+        border-color: #e5ac00;
+    }
+
+.movie-back-btn {
+    color: #ffc107;
+    background-color: transparent;
+    border: 1px solid rgba(255, 193, 7, 0.5);
+}
+
+    .movie-back-btn:hover {
         color: #151519;
         background-color: #ffc107;
     }
+
+/* Gallery */
+
+.movie-gallery-section {
+    margin-top: 65px;
+}
+
+.movie-gallery-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #35353d;
+}
+
+    .movie-gallery-heading h3 {
+        margin-bottom: 7px;
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 800;
+    }
+
+    .movie-gallery-heading p {
+        margin: 0;
+        color: #999999;
+        font-size: 13px;
+    }
+
+    .movie-gallery-heading > i {
+        color: #ffc107;
+        font-size: 28px;
+    }
+
+.movie-gallery-item {
+    height: 190px;
+    overflow: hidden;
+    background-color: #202027;
+    border: 1px solid #35353d;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+}
+
+    .movie-gallery-item:hover {
+        border-color: #ffc107;
+    }
+
+    .movie-gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s ease;
+    }
+
+    .movie-gallery-item:hover img {
+        transform: scale(1.06);
+    }
+
+/* Responsive */
+
+@media (max-width: 991.98px) {
+
+    .movie-details-poster {
+        height: 480px;
+    }
+
+    .movie-details-title {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 767.98px) {
+
+    .movie-details-page {
+        padding: 30px 15px 45px;
+    }
+
+    .movie-details-poster {
+        height: 450px;
+    }
+
+    .movie-details-info {
+        padding: 10px 0;
+    }
+
+    .movie-details-title {
+        font-size: 28px;
+    }
+
+    .movie-gallery-section {
+        margin-top: 40px;
+    }
+
+    .movie-gallery-item {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+
+
+    .movie-details-title {
+        font-size: 25px;
+    }
+
+    .movie-details-actions {
+        flex-direction: column;
+    }
+
+        .movie-details-actions a,
+        .movie-details-actions button {
+            width: 100%;
+        }
+
+    .movie-details-meta > div {
+        flex-wrap: wrap;
+    }
+}
+.movie-details-poster {
+    width: 100%;
+    height: auto;
+}
+
+.movie-details-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+.movie-image-wrapper {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.movie-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.movie-booking-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    background: #ffc107;
+    color: #151519;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-weight: 700;
+}
+
+.ticket-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background: #202027;
+    padding: 8px 15px;
+    border-radius: 8px;
+}
+
+
+.ticket-counter button {
+    background: transparent;
+    border: none;
+    color: #ffc107;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.ticket-counter input {
+    width: 45px;
+    min-width: 45px;
+    background: transparent;
+    border: none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    outline: none;
+    padding: 0;
+    font-size: 16px;
+}
+
+.cart-submit-btn {
+    background: #151519;
+    color: #ffc107;
+    border: none;
+    border-radius: 8px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.cart-submit-btn:hover {
+    background: #303038;
+    transform: scale(1.05);
+}
+
+.cinema-cart-btn {
+    position: relative; /* ضروري لتموضع الـ badge */
+}
+
+    .cinema-cart-btn .cart-badge {
+        position: absolute;
+        top: -6px;
+        right: -8px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffc107;
+        color: #151519;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 1;
+        border-radius: 10px;
+    }
+.movie-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+    .movie-actions .movie-details-btn,
+    .movie-actions .movie-cart-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 42px;
+        line-height: 1;
+        border-radius: 10px;
+        text-decoration: none;
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.25s ease;
+    }
+
+    /* View Details: أوت لاين أصفر */
+    .movie-actions .movie-details-btn {
+        flex: 1;
+        padding: 0 14px;
+        background-color: transparent;
+        border: 1.5px solid #ffc107;
+        color: #ffc107;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+        .movie-actions .movie-details-btn:hover {
+            background-color: #ffc107;
+            color: #151519;
+        }
+
+    /* Add to Cart: مربع صغير بأيقونة */
+    .movie-actions .movie-cart-btn {
+        flex: 0 0 42px;
+        width: 42px;
+        padding: 0;
+        background-color: #ffc107;
+        border: 1.5px solid #ffc107;
+        color: #151519;
+        font-size: 18px;
+    }
+
+        .movie-actions .movie-cart-btn:hover {
+            background-color: #ffcd38;
+            border-color: #ffcd38;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(255, 193, 7, 0.35);
+        }
+
+        .movie-actions .movie-cart-btn:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }

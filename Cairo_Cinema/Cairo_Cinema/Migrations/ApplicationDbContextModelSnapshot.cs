@@ -146,6 +146,24 @@ namespace Cairo_Cinema.Migrations
                     b.ToTable("ApplicationUserOtps");
                 });
 
+            modelBuilder.Entity("Cairo_Cinema.Models.Cart", b =>
+                {
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.HasKey("ApplicationUserId", "MovieId");
+
+                    b.HasIndex("MovieId");
+
+                    b.ToTable("Carts");
+                });
+
             modelBuilder.Entity("Cairo_Cinema.Models.Category", b =>
                 {
                     b.Property<int>("Id")
@@ -234,6 +252,9 @@ namespace Cairo_Cinema.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("Rate")
@@ -410,6 +431,25 @@ namespace Cairo_Cinema.Migrations
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("Cairo_Cinema.Models.Cart", b =>
+                {
+                    b.HasOne("Cairo_Cinema.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cairo_Cinema.Models.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("Cairo_Cinema.Models.Movie", b =>

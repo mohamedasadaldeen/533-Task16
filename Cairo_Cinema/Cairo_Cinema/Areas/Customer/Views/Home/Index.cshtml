@@ -198,10 +198,21 @@
                                 </span>
                             </div>
 
-                            <a href="#"
-                               class="movie-details-btn">
-                                View Details
-                            </a>
+                            <div class="movie-actions">
+                                <a href="/Customer/Home/CinemaDetails/@item.Id"
+                                   class="movie-details-btn">
+                                    View Details
+                                </a>
+
+                                <form asp-area="Customer" asp-controller="Cart" asp-action="AddToCart" method="post">
+                                    <input type="hidden" name="movieId" value="@item.Id" />
+                                    <input type="hidden" name="count" value="1" />
+
+                                    <button type="submit" class="movie-cart-btn" aria-label="Add to Cart" title="Add to Cart">
+                                        <i class="bi bi-cart-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
 
                         </div>
                     </div>
@@ -245,4 +256,51 @@
 </nav>
 @section Scripts {
     <partial name="_NotificationPartial" />
+    @* سكربت اضافة المنتج للسلة بدون اعادة تحميل الصفحة *@
+<script>
+    document.querySelectorAll('.movie-actions form').forEach(form => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const btn = form.querySelector('.movie-cart-btn');
+            const oldHtml = btn.innerHTML;
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+
+                // لو المستخدم غير مسجل دخول: وجّهه لصفحة الدخول
+                if (res.redirected && res.url.toLowerCase().includes('login')) {
+                    window.location.href = res.url;
+                    return;
+                }
+
+                if (!res.ok) {
+                    alert(await res.text());
+                    return;
+                }
+
+                // تحديث عدّاد السلة من الصفحة اللي رجعت
+                const html = await res.text();
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+                const newCart = doc.querySelector('.cinema-cart-btn');
+                const cart = document.querySelector('.cinema-cart-btn');
+                if (newCart && cart) cart.innerHTML = newCart.innerHTML;
+
+                // علامة نجاح على الزر
+                btn.innerHTML = '<i class="bi bi-check-lg"></i>';
+                btn.classList.add('added');
+                setTimeout(() => {
+                    btn.innerHTML = oldHtml;
+                    btn.classList.remove('added');
+                }, 1200);
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    });
+</script>
 }

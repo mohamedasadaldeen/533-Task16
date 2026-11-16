@@ -1,4 +1,14 @@
-﻿
+﻿@* _________________________ *@
+@* كود عددد العناصر فالسلة *@
+@using System.Security.Claims
+@using Cairo_Cinema.Data
+@inject ApplicationDbContext Db
+
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    var cartCount = Db.Carts.Count(c => c.ApplicationUserId == userId);
+}
+@* _________________________ *@
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,14 +84,16 @@
 
                     <div class="cinema-navbar-content">
                         <!-- Shopping Cart -->
-                        <a class="cinema-cart-btn"
-                           href="#"
-                           aria-label="Shopping Cart">
-
-                            <i class="bi bi-cart3"></i>
-
-                        </a>
-                        <!-- Menu -->
+                        @if (User.Identity.IsAuthenticated)
+                            {
+                            <a class="cinema-cart-btn"
+                               href="~/Customer/Cart/Index"
+                               aria-label="Shopping Cart">
+                                <i class="bi bi-cart3"></i>
+                                <span class="cart-badge">@cartCount</span>
+                            </a>
+                            }
+                            <!-- Menu -->
                         <div class="dropdown cinema-menu-wrapper">
 
                             <button class="btn cinema-menu-btn"
