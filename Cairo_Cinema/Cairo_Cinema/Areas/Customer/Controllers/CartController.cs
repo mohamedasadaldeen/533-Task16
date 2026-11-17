@@ -12,18 +12,61 @@ namespace Cairo_Cinema.Areas.Customer.Controllers
         private readonly IRepository<Cart> _cartRepository;
         private readonly IRepository<Movie> _movieRepository;
         private readonly UserManager<ApplicationUser> _userManager;
-        public CartController(IRepository<Cart> cartRepository, IRepository<Movie> movieRepository, UserManager<ApplicationUser> userManager)
+        private readonly IRepository<Coupon> _couponRepository;
+        public CartController(IRepository<Cart> cartRepository, IRepository<Movie> movieRepository, UserManager<ApplicationUser> userManager, IRepository<Coupon> couponRepository)
         {
             _cartRepository = cartRepository;
             _movieRepository = movieRepository;
             _userManager = userManager;
+            _couponRepository = couponRepository;
         }
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
             if (user == null) return NotFound();
             var carts = await _cartRepository.GetListAsync(m => m.ApplicationUserId == user.Id, includes: [m => m.Movie]);
+            var subtotal = carts.Sum(c => c.Movie.Price * c.Count);
+            decimal discount = 0;
+            var code = HttpContext.Session.GetString("CouponCode");
+            if (code != null)
+            {
+                var coupon = await _couponRepository.GetOneAsync(c =>
+                    c.Code == code && c.IsActive && c.ExpiryDate >= DateTime.UtcNow);
+
+                if (coupon != null)
+                    discount = subtotal * coupon.DiscountPercent / 100;
+                else
+                    HttpContext.Session.Remove("CouponCode");   // الكود انتهى أو تعطّل
+            }
+
+            ViewBag.Subtotal = subtotal;
+            ViewBag.Discount = discount;
+            ViewBag.Total = subtotal - discount;
+            ViewBag.CouponCode = HttpContext.Session.GetString("CouponCode");
+
             return View(carts);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ApplyCoupon(string code)
+        {
+            code = code?.Trim() ?? "";
+
+            var coupon = await _couponRepository.GetOneAsync(c =>
+                c.Code == code && c.IsActive && c.ExpiryDate >= DateTime.UtcNow);
+
+            if (coupon is null)
+            {
+                TempData["CouponError"] = "Invalid or expired code.";
+                return RedirectToAction(nameof(Index));
+            }
+
+            HttpContext.Session.SetString("CouponCode", coupon.Code);
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult RemoveCoupon()
+        {
+            HttpContext.Session.Remove("CouponCode");
+            return RedirectToAction(nameof(Index));
         }
         public async Task<IActionResult> AddToCart(int movieId, int count)
         {

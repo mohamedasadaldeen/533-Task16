@@ -278,6 +278,65 @@
             justify-content: center;
         }
     }
+    /* ---------- Total Summary ---------- */
+.cart-page .cart-total .card-body {
+    padding: 18px 20px;
+}
+
+.cart-page .cart-total .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.cart-page .cart-total .total-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #a5a5ad;
+    font-size: 15px;
+}
+
+.cart-page .cart-total .total-amount {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cart-page .cart-total .discount-amount {
+    color: #28a745;
+}
+
+.cart-page .cart-total .discount-badge {
+    background-color: rgba(40, 167, 69, 0.15);
+    border: 1px solid rgba(40, 167, 69, 0.5);
+    color: #28a745;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    padding: 4px 8px;
+    border-radius: 20px;
+}
+
+/* صف الـ Total النهائي */
+.cart-page .cart-total .total-final {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid #303038;
+}
+
+.cart-page .cart-total .total-final .total-label {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.cart-page .cart-total .total-final .total-amount {
+    color: #ffc107;
+    font-size: 22px;
+    font-weight: 700;
+}
 </style>
 
 <section class="cart-page">
@@ -329,22 +388,64 @@
         </div>
     }
 
-    <div class="card cart-promo">
-      <div class="card-body">
-        <label class="form-label" for="discountCode">Discount code</label>
-        <div class="promo-row">
-          <input type="text" id="discountCode" class="form-control form-control-lg" placeholder="Enter your code" />
-          <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-warning btn-lg">Apply</button>
-        </div>
-      </div>
+<div class="card cart-promo">
+  <div class="card-body">
+    <label class="form-label" for="discountCode">Discount code</label>
+
+    <form asp-area="Customer" asp-controller="Cart" asp-action="ApplyCoupon" method="post" class="promo-row">
+      <input type="text" id="discountCode" name="code" class="form-control form-control-lg" placeholder="Enter your code" />
+      <button type="submit" class="btn btn-outline-warning btn-lg">Apply</button>
+    </form>
+
+    @if (TempData["CouponError"] != null)
+    {
+        <small class="text-danger d-block mt-2">@TempData["CouponError"]</small>
+    }
+
+    @if (ViewBag.CouponCode != null)
+    {
+        <small class="d-block mt-2" style="color:#28a745;">
+            Code <b>@ViewBag.CouponCode</b> applied.
+            <a href="~/Customer/Cart/RemoveCoupon" class="text-danger ms-2">Remove</a>
+        </small>
+    }
+  </div>
+</div>
+
+
+@{
+    var subtotal = (decimal)ViewBag.Subtotal;
+    var discount = (decimal)ViewBag.Discount;
+    var total = (decimal)ViewBag.Total;
+    var percent = subtotal > 0 ? Math.Round(discount / subtotal * 100, 0) : 0;
+}
+
+<div class="card cart-total">
+  <div class="card-body">
+
+    <div class="total-row">
+      <span class="total-label">Subtotal</span>
+      <span class="total-amount">@subtotal.ToString("C")</span>
     </div>
 
-    <div class="card cart-total">
-         <div class="card-body">
-           <span class="total-label">Total Price</span>
-           <span class="total-value"><strong>@(Model.Sum(i => i.Movie.Price * i.Count).ToString("C"))</strong></span>
-         </div>
+    <div class="total-row">
+      <span class="total-label">
+        Discount
+        @if (percent > 0)
+        {
+            <span class="discount-badge">-@percent%</span>
+        }
+      </span>
+      <span class="total-amount discount-amount">-@discount.ToString("C")</span>
     </div>
+
+    <div class="total-row total-final">
+      <span class="total-label">Total</span>
+      <span class="total-amount">@total.ToString("C")</span>
+    </div>
+
+  </div>
+</div>
 
     <div class="card cart-checkout">
       <div class="card-body">

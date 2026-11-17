@@ -40,6 +40,7 @@ namespace Cairo_Cinema
             builder.Services.AddScoped<IRepository<Cart>, Repository<Cart>>();
             builder.Services.AddTransient<IEmailSender, EmailSender>();
             builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+            builder.Services.AddScoped<IRepository<Models.Coupon>, Repository<Models.Coupon>>();
 
             //__________________________________________________________________
             //Identity
@@ -65,6 +66,8 @@ namespace Cairo_Cinema
 
             StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
+            builder.Services.AddSession();
+
             var app = builder.Build();
             //
             using (var scope = app.Services.CreateScope())
@@ -83,6 +86,8 @@ namespace Cairo_Cinema
 
             app.UseHttpsRedirection();
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
