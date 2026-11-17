@@ -339,14 +339,21 @@
       </div>
     </div>
 
+    <div class="card cart-total">
+         <div class="card-body">
+           <span class="total-label">Total Price</span>
+           <span class="total-value"><strong>@(Model.Sum(i => i.Movie.Price * i.Count).ToString("C"))</strong></span>
+         </div>
+    </div>
+
     <div class="card cart-checkout">
       <div class="card-body">
         <a asp-controller="Home" asp-action="Index" class="btn btn-outline-warning btn-lg btn-shopping">
           <i class="fas fa-arrow-left me-2"></i> Go to Shopping
         </a>
-        <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg">
+        <a href="~/Customer/Cart/Pay" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-lg">
           Proceed to Pay <i class="fas fa-arrow-right ms-2"></i>
-        </button>
+        </a>
       </div>
     </div>
 

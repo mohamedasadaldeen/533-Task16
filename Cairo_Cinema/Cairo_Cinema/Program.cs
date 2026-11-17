@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Stripe;
 
 namespace Cairo_Cinema
 {
@@ -62,6 +63,7 @@ namespace Cairo_Cinema
             });
             //__________________________________________________________________
 
+            StripeConfiguration.ApiKey = builder.Configuration["Stripe:SecretKey"];
 
             var app = builder.Build();
             //
