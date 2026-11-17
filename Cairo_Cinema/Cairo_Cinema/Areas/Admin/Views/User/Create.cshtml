@@ -1,0 +1,318 @@
+﻿@model CreateUserVM
+
+<style>
+    /* ===================== Create User Page ===================== */
+    .profile-page {
+        background-color: rgba(21, 21, 25, 0.6);
+        color: #fff;
+        padding: 30px 25px;
+        margin-top: 1rem;
+        border-radius: 12px;
+    }
+
+        /* ---------- Cards ---------- */
+        .profile-page .card {
+            background-color: #202027;
+            border: 1px solid #303038;
+            border-radius: 12px;
+            color: #fff;
+        }
+
+        .profile-page .card-body {
+            background-color: transparent;
+            padding: 24px;
+        }
+
+        /* ---------- Section Titles ---------- */
+        .profile-page .section-title {
+            color: #ffc107;
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #303038;
+        }
+
+        /* ---------- Side Card ---------- */
+        .profile-page .user-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #303038;
+        }
+
+        .profile-page .user-avatar {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 3px solid #ffc107;
+            background-color: #151519;
+            color: #ffc107;
+            font-size: 38px;
+        }
+
+        .profile-page .user-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 14px 0 4px;
+        }
+
+        .profile-page .user-email {
+            color: #a5a5ad;
+            font-size: 14px;
+            font-weight: 400;
+            margin: 0;
+        }
+
+        .profile-page .about h5 {
+            color: #ffc107;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .profile-page .about p {
+            color: #a5a5ad;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ---------- Form Fields ---------- */
+        .profile-page .form-group {
+            margin-bottom: 18px;
+        }
+
+            .profile-page .form-group label {
+                display: block;
+                color: #a5a5ad;
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+        .profile-page .form-control,
+        .profile-page .form-select {
+            height: 44px;
+            background-color: #151519 !important;
+            border: 1px solid #44444e !important;
+            border-radius: 8px;
+            color: #fff !important;
+            padding: 8px 14px;
+            box-shadow: none;
+        }
+
+            .profile-page .form-control::placeholder {
+                color: #6f6f7a;
+            }
+
+            .profile-page .form-control:focus,
+            .profile-page .form-select:focus {
+                border-color: #ffc107 !important;
+                box-shadow: 0 0 0 0.15rem rgba(255, 193, 7, 0.2);
+            }
+
+        .profile-page .text-danger {
+            display: block;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        /* ---------- Buttons ---------- */
+        .profile-page .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .profile-page .btn-profile {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            min-width: 120px;
+            padding: 0 24px;
+            line-height: 1;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-page .btn-profile-primary {
+            background-color: #ffc107;
+            border: 1px solid #ffc107;
+            color: #151519;
+            font-weight: 700;
+        }
+
+            .profile-page .btn-profile-primary:hover {
+                background-color: #e0a800;
+                border-color: #e0a800;
+                color: #151519;
+            }
+
+        .profile-page .btn-profile-cancel {
+            background-color: transparent;
+            border: 1px solid #44444e;
+            color: #fff;
+        }
+
+            .profile-page .btn-profile-cancel:hover {
+                border-color: #ffc107;
+                color: #ffc107;
+            }
+
+    /* ---------- Responsive ---------- */
+    @@media (max-width: 768px) {
+        .profile-page {
+            padding: 20px 15px;
+        }
+
+            .profile-page .card-body {
+                padding: 18px;
+            }
+
+            .profile-page .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .profile-page .btn-profile {
+                width: 100%;
+            }
+    }
+</style>
+
+<div class="container">
+    <div class="profile-page">
+        <div class="row g-4">
+
+            <!-- ============ Side Card ============ -->
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                                <h5 class="user-name">New User</h5>
+                                <h6 class="user-email">Fill in the details</h6>
+                            </div>
+                            <div class="about">
+                                <h5>About</h5>
+                                <p>Create a new account by entering the personal details and a password, then choose a role for the user.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ============ Form ============ -->
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                <form asp-action="Create" method="post">
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h6 class="section-title">Personal Details</h6>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Name">Full Name</label>
+                                        <input class="form-control" asp-for="Name" placeholder="Enter full name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Email">Email</label>
+                                        <input class="form-control" asp-for="Email" placeholder="Enter email">
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="UserName">User Name</label>
+                                        <input class="form-control" asp-for="UserName" placeholder="Enter UserName">
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                               
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber">Phone Number</label>
+                                        <input class="form-control" asp-for="PhoneNumber" placeholder="Enter Phone Number">
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="section-title mt-2">Address</h6>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Address">Address</label>
+                                        <input class="form-control" asp-for="Address" placeholder="Enter Address">
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="section-title mt-2">Account</h6>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Password">Password</label>
+                                        <input asp-for="Password" type="password" class="form-control" placeholder="Enter Password">
+                                        <span asp-validation-for="Password" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="ConfirmPassword">Confirm Password</label>
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Re-enter Password">
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Role">Role</label>
+                                        <select asp-for="Role" class="form-select">
+                                            <option value="">-- No role --</option>
+                                            @foreach (var role in Model.Roles)
+                                            {
+                                                <option value="@role">@role</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="reset" class="btn-profile btn-profile-cancel">Cancel</button>
+                                <button type="submit" class="btn-profile btn-profile-primary">Create User</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_NotificationPartial" />
+    <partial name="_ValidationScriptsPartial" />
+}

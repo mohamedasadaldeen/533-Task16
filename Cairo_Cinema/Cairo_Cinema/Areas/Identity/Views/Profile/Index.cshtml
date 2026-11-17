@@ -1,106 +1,312 @@
 @model ApplicationUserVM
+
+<style>
+    /* ===================== Profile Page ===================== */
+    .profile-page {
+        background-color: rgba(21, 21, 25, 0.6);
+        color: #fff;
+        padding: 30px 25px;
+        margin-top: 1rem;
+        border-radius: 12px;
+    }
+
+        /* ---------- Cards ---------- */
+        .profile-page .card {
+            background-color: #202027;
+            border: 1px solid #303038;
+            border-radius: 12px;
+            color: #fff;
+        }
+
+        .profile-page .card-body {
+            background-color: transparent;
+            padding: 24px;
+        }
+
+        .profile-page .profile-card {
+            margin-bottom: 20px;
+        }
+
+            .profile-page .profile-card:last-child {
+                margin-bottom: 0;
+            }
+
+        /* ---------- Section Titles ---------- */
+        .profile-page .section-title {
+            color: #ffc107;
+            font-size: 17px;
+            font-weight: 700;
+            margin: 0 0 18px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #303038;
+        }
+
+        /* ---------- User Side Card ---------- */
+        .profile-page .user-profile {
+            text-align: center;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #303038;
+        }
+
+        .profile-page .user-avatar img {
+            width: 96px;
+            height: 96px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #ffc107;
+            padding: 3px;
+            background-color: #151519;
+        }
+
+        .profile-page .user-name {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 14px 0 4px;
+        }
+
+        .profile-page .user-email {
+            color: #a5a5ad;
+            font-size: 14px;
+            font-weight: 400;
+            margin: 0;
+            word-break: break-all;
+        }
+
+        .profile-page .about h5 {
+            color: #ffc107;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .profile-page .about p {
+            color: #a5a5ad;
+            font-size: 14px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* ---------- Form Fields ---------- */
+        .profile-page .form-group {
+            margin-bottom: 18px;
+        }
+
+            .profile-page .form-group label {
+                display: block;
+                color: #a5a5ad;
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+
+        .profile-page .form-control {
+            height: 44px;
+            background-color: #151519 !important;
+            border: 1px solid #44444e !important;
+            border-radius: 8px;
+            color: #fff !important;
+            padding: 8px 14px;
+            box-shadow: none;
+        }
+
+            .profile-page .form-control::placeholder {
+                color: #6f6f7a;
+            }
+
+            .profile-page .form-control:focus {
+                border-color: #ffc107 !important;
+                box-shadow: 0 0 0 0.15rem rgba(255, 193, 7, 0.2);
+            }
+
+            .profile-page .form-control:disabled {
+                background-color: #1a1a20 !important;
+                color: #77777f !important;
+                -webkit-text-fill-color: #77777f;
+                cursor: not-allowed;
+                opacity: 1;
+            }
+
+        /* ---------- Buttons ---------- */
+        .profile-page .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 6px;
+        }
+
+        .profile-page .btn-profile {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 44px;
+            min-width: 120px;
+            padding: 0 24px;
+            line-height: 1;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-page .btn-profile-primary {
+            background-color: #ffc107;
+            border: 1px solid #ffc107;
+            color: #151519;
+            font-weight: 700;
+        }
+
+            .profile-page .btn-profile-primary:hover {
+                background-color: #e0a800;
+                border-color: #e0a800;
+                color: #151519;
+            }
+
+        .profile-page .btn-profile-cancel {
+            background-color: transparent;
+            border: 1px solid #44444e;
+            color: #fff;
+        }
+
+            .profile-page .btn-profile-cancel:hover {
+                border-color: #ffc107;
+                color: #ffc107;
+            }
+
+    /* ---------- Responsive ---------- */
+    @@media (max-width: 768px) {
+        .profile-page {
+            padding: 20px 15px;
+        }
+
+            .profile-page .card-body {
+                padding: 18px;
+            }
+
+            .profile-page .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .profile-page .btn-profile {
+                width: 100%;
+            }
+    }
+</style>
+
 <div class="container">
-    <div class="row gutters my-3">
-        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="account-settings">
-                        <div class="user-profile">
-                            <div class="user-avatar">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin" style="width: 90px">
+    <div class="profile-page">
+        <div class="row g-4">
+
+            <!-- ============ Side Card ============ -->
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="account-settings">
+                            <div class="user-profile">
+                                <div class="user-avatar">
+                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="@Model.Name">
+                                </div>
+                                <h5 class="user-name">@Model.Name</h5>
+                                <h6 class="user-email">@Model.Email</h6>
                             </div>
-                            <h5 class="user-name"></h5>
-                            <h6 class="user-email"></h6>
-                        </div>
-                        <div class="about">
-                            <h5>About</h5>
-                            <p>I'm Yuki. Full Stack Designer I enjoy creating user-centric, delightful and human experiences.</p>
+                            <div class="about">
+                                <h5>About</h5>
+                                <p>Welcome to your profile. You can update your personal details and change your password from here.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-            <form asp-action="UpdateProfile">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Personal Details</h6>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="fullName">Full Name</label>
-                                    <input class="form-control" id="fullName" asp-for="Name" placeholder="Enter full name">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="eMail">Email</label>
-                                    <input disabled class="form-control" asp-for="Email" placeholder="Enter email ID">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="eMail">phone Number</label>
-                                    <input class="form-control" asp-for="PhoneNumber" placeholder="Enter Phone Number">
 
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mt-3 mb-2 text-primary">Address</h6>
+            <!-- ============ Forms ============ -->
+            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                <!-- Personal Details + Address -->
+                <form asp-action="UpdateProfile">
+                    <div class="card profile-card">
+                        <div class="card-body">
+
+                            <h6 class="section-title">Personal Details</h6>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
                                     <div class="form-group">
-                                        <label for="Address">Address</label>
+                                        <label asp-for="Name">Full Name</label>
+                                        <input class="form-control" asp-for="Name" placeholder="Enter full name">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="UserName">User Name</label>
+                                        <input class="form-control" asp-for="UserName" placeholder="Enter user name">
+                                        <span asp-validation-for="UserName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Email">Email</label>
+                                        <input disabled class="form-control" asp-for="Email" placeholder="Enter email ID">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber">Phone Number</label>
+                                        <input class="form-control" asp-for="PhoneNumber" placeholder="Enter Phone Number">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h6 class="section-title mt-2">Address</h6>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Address">Address</label>
                                         <input class="form-control" asp-for="Address" placeholder="Enter Address">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row gutters my-3">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="text-right">
-                                        <button type="reset" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
-                                        <button type="submit" id="submit" name="submit" class="btn btn-primary">Update</button>
+
+                            <div class="form-actions">
+                                <button type="reset" class="btn-profile btn-profile-cancel">Cancel</button>
+                                <button type="submit" class="btn-profile btn-profile-primary">Update</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Update Password -->
+                <form asp-action="UpdatePassword">
+                    <div class="card profile-card">
+                        <div class="card-body">
+
+                            <h6 class="section-title">Update Password</h6>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="CurrentPassword">Current Password</label>
+                                        <input asp-for="CurrentPassword" type="password" class="form-control" placeholder="Enter Current Password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label asp-for="NewPassword">New Password</label>
+                                        <input asp-for="NewPassword" type="password" class="form-control" placeholder="Enter New Password">
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn-profile btn-profile-primary">Update Password</button>
+                            </div>
+
                         </div>
                     </div>
-                </div>
-            </form>
-            <form asp-action="UpdatePassword">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <div class="row gutters">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <h6 class="mb-2 text-primary">Update Password</h6>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="CurrentPassword">Current Password</label>
-                                    <input asp-for="CurrentPassword" type="password" class="form-control" placeholder="Enter Current Password">
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label for="New Password">New Password</label>
-                                    <input asp-for="NewPassword" type="password" class="form-control" placeholder="Enter New Password">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row gutters my-3">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="text-right">
-                                    <button type="submit" id="submit" name="submit" class="btn btn-primary">Update Password</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                </form>
+
+            </div>
         </div>
     </div>
 </div>

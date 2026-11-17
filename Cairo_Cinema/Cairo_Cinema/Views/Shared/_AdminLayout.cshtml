@@ -32,7 +32,6 @@
 
 <body>
 
-
     <!-- Main Layout -->
     <div id="layoutSidenav">
 
@@ -46,11 +45,13 @@
 
                     <div class="nav">
 
+               
+
                         <div class="sb-sidenav-menu-heading">Core</div>
 
                         <a class="nav-link"
                            asp-area="Admin"
-                           asp-controller="Home"
+                           asp-controller="Dashboard"
                            asp-action="Index">
 
                             <div class="sb-nav-link-icon">
@@ -71,10 +72,10 @@
                            aria-controls="collapseLayouts">
 
                             <div class="sb-nav-link-icon">
-                                <i class="fas fa-columns"></i>
+                                <i class="fa-solid fa-users"></i>
                             </div>
 
-                            Layouts
+                            Users
 
                             <div class="sb-sidenav-collapse-arrow">
                                 <i class="fas fa-angle-down"></i>
@@ -85,12 +86,32 @@
                              id="collapseLayouts"
                              data-bs-parent="#sidenavAccordion">
 
-                            <nav class="sb-sidenav-menu-nested nav">
+                            <div class="sb-sidenav-menu-heading">Users</div>
 
-                                <a class="nav-link" href="#">Static Navigation</a>
-                                <a class="nav-link" href="#">Light Sidenav</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Create" && ViewContext.RouteData.Values["controller"]?.ToString() == "Profile" ? "active" : "")"
+                               asp-area="Admin"
+                               asp-controller="User"
+                               asp-action="Create">
+                            
+                                <div class="sb-nav-link-icon">
+                                    <i class="fas fa-user-plus"></i>
+                                </div>
+                            
+                                Add User
+                            </a>
 
-                            </nav>
+                            <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString() == "Create" && ViewContext.RouteData.Values["controller"]?.ToString() == "Profile" ? "active" : "")"
+                               asp-area="Admin"
+                               asp-controller="User"
+                               asp-action="Index">
+                            
+                                <div class="sb-nav-link-icon">
+                                    <i class="fa-solid fa-list"></i>
+                                </div>
+                            
+                                View Users
+                            </a>
+
                         </div>
 
                         <!-- Pages Dropdown -->
@@ -194,11 +215,11 @@
                     </div>
                 </div>
 
-                <!-- Sidebar Footer -->
+               @*  <!-- Sidebar Footer -->
                 <div class="sb-sidenav-footer">
                     <div class="small">Logged in as:</div>
                     Cairo Cinema Dashboard
-                </div>
+                </div> *@
 
             </nav>
         </div>
@@ -302,21 +323,30 @@
                                         </li>
 
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" 
+                                                asp-area="Admin"
+                                                asp-controller="Category"
+                                                asp-action="Index">
                                                 <i class="bi bi-grid"></i>
                                                 Categories
                                             </a>
                                         </li>
 
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item"
+                                                asp-area="Admin"
+                                                asp-controller="Cinema"
+                                                asp-action="Index">
                                                 <i class="bi bi-building"></i>
                                                 Cinemas
                                             </a>
                                         </li>
 
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" 
+                                                asp-area="Admin"
+                                                asp-controller="Actor"
+                                                asp-action="Index">
                                                 <i class="bi bi-people"></i>
                                                 Actors
                                             </a>

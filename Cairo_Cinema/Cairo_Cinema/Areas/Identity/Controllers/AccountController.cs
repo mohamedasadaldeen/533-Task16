@@ -122,7 +122,7 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
                 User.IsInRole(CD.ADMIN) ||
                 User.IsInRole(CD.EMPLOYEE))
             {
-                return RedirectToAction("Index", "Movie", new { area = "Admin" });
+                return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
             }
 
             else

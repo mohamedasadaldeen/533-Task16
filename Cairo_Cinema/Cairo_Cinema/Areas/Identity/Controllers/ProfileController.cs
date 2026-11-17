@@ -10,12 +10,13 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
     public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public ProfileController(UserManager<ApplicationUser> userManager)
+        public ProfileController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
         }
-
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -27,10 +28,10 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
             var userVM = user.Adapt<ApplicationUserVM>();
             return View(userVM);
         }
-
         public async Task<IActionResult> UpdateProfile(ApplicationUserVM applicationUserVM)
         {
             var user = await _userManager.GetUserAsync(User);
+            user.UserName = applicationUserVM.UserName;
             user.Name = applicationUserVM.Name;
             user.PhoneNumber = applicationUserVM.PhoneNumber;
             user.Address = applicationUserVM.Address;
@@ -48,7 +49,6 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
         public async Task<IActionResult> UpdatePassword(ApplicationUserVM applicationUserVM)
         {
 
@@ -75,5 +75,6 @@ namespace Cairo_Cinema.Areas.Identity.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        
     }
 }
